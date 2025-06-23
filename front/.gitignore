@@ -1,0 +1,48 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Expo files
+.expo/
+.expo-shared/
+
+# Build output
+dist/
+build/
+web-build/
+
+# React Native
+ios/
+android/
+*.keystore
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Metro cache
+metro-cache/
+# React Native packager
+.expo/
+# Watchman
+.watchmanconfig
+
+# Coverage reports
+coverage/
+
+# Others
+*.local
+*.sublime-workspace
+*.sublime-project
