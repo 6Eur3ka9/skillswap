@@ -24,7 +24,7 @@ export async function clearTokens() {
 }
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.187/api',
+  baseURL: 'http://192.168.1.177/api',
   headers: { 'Content-Type': 'application/json' },
 })
 

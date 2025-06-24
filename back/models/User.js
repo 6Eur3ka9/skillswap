@@ -6,49 +6,89 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 5,
-    maxlength: 25
+    maxlength: 25,
+    trim: true
   },
   username: {
     type: String,
     required: true,
     unique: true,
     minlength: 5,
-    maxlength: 20
-  },
-  city: {
-    type: String,
-    required: true,
-    maxlength: 20
-  },
-  phone: {
-    type: String,
-    required: true,
     maxlength: 20,
-   // match: /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/
-  },
-  date: {
-    type: Date,
-    required: true,
+    trim: true,
+    lowercase: true
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    match: /^\S+@\S+\.\S+$/
+    match: /^\S+@\S+\.\S+$/,
+    lowercase: true,
+    trim: true
   },
   password: {
     type: String,
-    required: true,
-    // match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+    required: true
   },
-  created_at: {
+  phone: {
+    type: String,
+    required: true,
+    maxlength: 20,
+    trim: true
+  },
+  city: {
+    type: String,
+    required: true,
+    maxlength: 50,
+    trim: true
+  },
+  dateOfBirth: {
     type: Date,
     required: true
   },
+  bio: {
+    type: String,
+    maxlength: 500,
+    default: ''
+  },
   profilePicture: {
-    type: String ,
-    required: true
+    type: String,
+    default: 'defaultprofile.jpg'
+  },
+  skillsOffered: [{ type: Schema.Types.ObjectId, ref: 'Skill' }],
+  skillsWanted: [{ type: Schema.Types.ObjectId, ref: 'Skill' }],
+  domains: [{ type: Schema.Types.ObjectId, ref: 'Domain' }],
+  favorites: [{ type: Schema.Types.ObjectId, ref: 'Listing' }],
+  tokenVersion: {
+    type: Number,
+    default: 0
+  },
+  averageRating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5
+  },
+  reviewCount: {
+    type: Number,
+    default: 0
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
 });
+
+userSchema.pre('save', function(next) {
+  this.updatedAt = new Date();
+  next();
+});
+
+userSchema.index({ username: 1 });
+userSchema.index({ email: 1 });
 
 module.exports = mongoose.model('User', userSchema);
